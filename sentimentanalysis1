@@ -1,0 +1,30 @@
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from nltk import tokenize
+
+# Download required NLTK data
+nltk.download('vader_lexicon')
+nltk.download('punkt')
+
+# Initialize sentiment intensity analyzer
+sia = SentimentIntensityAnalyzer()
+
+# Function to analyze sentiment
+def analyze_sentiment(text):
+    scores = sia.polarity_scores(text)
+    if scores['compound'] >= 0.05:
+        return "Positive"
+    elif scores['compound'] <= -0.05:
+        return "Negative"
+    else:
+        return "Neutral"
+
+# Test the function
+text = "I loved the movie! It was amazing."
+print(analyze_sentiment(text))  # Output: Positive
+
+text = "I hated the movie. It was terrible."
+print(analyze_sentiment(text))  # Output: Negative
+
+text = "The movie was bad."
+print(analyze_sentiment(text))  # Output: Neutral
